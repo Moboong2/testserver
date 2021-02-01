@@ -1,0 +1,105 @@
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lotto</title>
+    <script>
+        var arrNum = [];
+        for (let i = 0; i < 45; i++) {
+            arrNum[i] = i + 1;
+        }// 45배열
+
+        //하나뽑기 함수
+        var num = 1;
+        function pickOrdered() {
+            var target = document.getElementById("lotto" + num);
+            num++;
+            if (arrNum.length > 39) {
+                var randIdx = parseInt(Math.random() * arrNum.length);
+                target.innerHTML = arrNum[randIdx];
+                arrNum.splice(randIdx, 1);
+            }
+            else {
+                alert('6개 다 뽑았습니다.')
+            }
+        }
+
+        //전부 뽑기
+        function pickAllLotto() {
+            const arrNum = [];
+            const myNum = [];
+
+            for (let i = 0; i < 45; i++) {
+                arrNum[i] = i + 1;
+            }// 45배열
+
+            for (let i = 0; i < 6; i++) {
+                const randIdx = parseInt(Math.random() * arrNum.length);
+                myNum.push(arrNum[randIdx]); //내 배열에 넣고
+                arrNum.splice(randIdx, 1); //주머니 속의 그 숫자 제거
+            }
+            console.log(myNum);
+            for (let i = 0; i <= 5; i++) {
+                var target = document.getElementById("lotto" + (i + 1));
+                target.innerHTML = myNum[i];
+            }
+            alert('6개 다 뽑았습니다.');
+        }
+
+        //버튼 별로 무작위 뽑기
+        function pickOne(clikedname) {
+            var target = document.getElementById("lotto" + clikedname);
+            if (arrNum.length > 39) {
+                var randIdx = parseInt(Math.random() * arrNum.length);
+                target.innerHTML = arrNum[randIdx];
+                arrNum.splice(randIdx, 1);
+            }
+            else {
+                alert('6개 다 뽑았습니다.');
+            }
+        }
+    </script>
+    <style>
+        button {
+            display: inline-block;
+            width: 20%;
+            height: 11%;
+            font-size: larger;
+            margin: 3%;
+        }
+
+        div.container {
+            width: 100%;
+            height: 100%;
+            border: 2px solid tan;
+            text-align: center;
+        }
+
+        div.border {
+            margin-left: 20%;
+            width: 60%;
+            height: auto;
+            text-align: center;
+            border: 2px solid orangered;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <button onclick="pickOrdered()" ;>하나씩 뽑기</button>
+        <div class="border">
+            <button id="lotto1" name="1" onclick="pickOne(this.name);">Pick</button>
+            <button id="lotto2" name="2" onclick="pickOne(this.name);">Pick</button>
+            <button id="lotto3" name="3" onclick="pickOne(this.name);">Pick</button>
+            <button id="lotto4" name="4" onclick="pickOne(this.name);">Pick</button>
+            <button id="lotto5" name="5" onclick="pickOne(this.name);">Pick</button>
+            <button id="lotto6" name="6" onclick="pickOne(this.name);">Pick</button>
+            <p>직접 상자를 눌러 뽑기 가능</p>
+        </div>
+        <button value="Pick" onclick="pickAllLotto()" ;>한번에 다 뽑기</button>
+    </div>
+</body>
+
+</html>
